@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}

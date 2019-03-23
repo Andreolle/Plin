@@ -1,0 +1,51 @@
+.menu {
+	display: inline-block;
+	padding: 0 2em;
+	background: #000000;
+	width: 5.5em;
+	@include transition(width .2s ease-in);
+	overflow: hidden;
+	&.open {
+		width: 15.5em;
+		li {
+			span {
+				margin-left: 2.25em;
+				opacity: 1;
+				width: auto;
+			}
+		}
+	}
+	ul {
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	li {
+		a {
+			display: flex;
+			align-items: center;
+			padding: 1em 0;
+			height: 3.5em;
+			color: $white;
+			font-size: 1em;
+			opacity: 0.5;
+			&.active {
+				opacity: 1;
+			}
+		}
+		svg {
+			width: 1.35em;
+			fill: $white;
+			position: absolute;
+		}
+		span {
+			@include transition(opacity .9s ease, width .9s ease);
+			white-space: nowrap;
+			font-size: 1.1em;
+			opacity: 0;
+			width: 0;
+			overflow: hidden;
+		}
+	}
+}
