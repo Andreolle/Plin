@@ -10,7 +10,7 @@ import { ReactComponent as Profile } from '../assets/images/profile-user.svg';
 class Menu extends Component {
 	render() {
 		return (
-			<nav className={this.props.isOpen ? 'menu open' : 'menu'}>
+			<nav className={this.props.isOpen ? 'menu menu--open' : 'menu'}>
 				<ul>
 					<li>
 						<NavLink activeClassName="active" to="/busca">
@@ -53,7 +53,7 @@ Menu.propTypes = {
 }
 
 Menu.defaultProps = {
-  isOpen: true
+  isOpen: false
 };
 
 export default Menu

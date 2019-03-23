@@ -7,16 +7,16 @@ configure({adapter: new Adapter()})
 describe('Menu component', () => {
 	it('Menu should has class "open" when passed prop isOpen equals true.', () => {
 		const menu = shallow(<Menu isOpen={true} />)
-		expect(menu.find('.menu').hasClass('open')).toEqual(true)
+		expect(menu.find('.menu').hasClass('menu--open')).toEqual(true)
 	})
 
-	it('Menu should has class "open" by default.', () => {
+	it('Menu should initiate close by default.', () => {
 		const menu = shallow(<Menu />)
-		expect(menu.find('.menu').hasClass('open')).toEqual(true)
+		expect(menu.find('.menu').hasClass('menu--open')).toEqual(false)
 	})
 
 	it('Menu should has no class "open" when passed prop isOpen equals false.', () => {
 		const menu = shallow(<Menu isOpen={false} />)
-		expect(menu.find('.menu').hasClass('open')).toEqual(false)
+		expect(menu.find('.menu').hasClass('menu--open')).toEqual(false)
 	})
 })

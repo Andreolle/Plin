@@ -1,0 +1,77 @@
+.highlight {
+	position: relative;
+	overflow: hidden;
+	&__background {
+		position: relative;
+		&:before {
+			display: block;
+			content: "";
+			position: absolute;
+			left: 0;
+			width: 100vw;
+			height: 100%;
+			z-index: 1;
+			background-image: linear-gradient(180deg,rgba(31,31,31,0) 35%,#1f1f1f),
+			linear-gradient(180deg,rgba(0,0,0,.5) 5%,transparent 20%),
+			linear-gradient(270deg,transparent 30%,rgba(0,0,0,.9) 80%);
+		}
+		img {
+			width: 100vw;
+		}
+	}
+	&__content {
+		position: absolute;
+		top: 25vh;
+		left: 13em;
+		z-index: 5;
+	}
+	.highlight__headline {
+		&--text {
+			font-size: 3em;
+			margin-bottom: 0.5em;
+		}
+		&--image {
+			img {
+				width: 18em;
+			}
+		}
+	}
+	&__description {
+		font-size: 1.5em;
+		max-width: 90%;
+	}
+	&__actions {
+		display: flex;
+		margin-top: 2.5em;
+	}
+	&__button {
+		margin-right: 1em;
+		&.hover {
+			a {
+				background: $white;
+				border: 1px solid $white;
+				color: $black;
+			}
+			svg {
+				fill: $black;
+			}
+		}
+		a {
+			padding: 0.9em 1.5em;
+			font-size: 1em;
+			display: flex;
+			align-items: center;
+			font-weight: 700;
+			color: $gray;
+			@include border-radius(0.4em);
+			border: 1px solid $gray;
+		}
+		svg {
+			width: 0.9em;
+			height: 1em;
+			fill: $gray;
+			margin-right: 0.25em;
+			margin-left: -0.25em;
+		}
+	}
+}

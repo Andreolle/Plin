@@ -1,12 +1,12 @@
 .menu {
-	display: inline-block;
-	padding: 0 2em;
+	position: fixed;
 	background: #000000;
-	width: 5.5em;
+	width: 7.5em;
 	@include transition(width .2s ease-in);
 	overflow: hidden;
-	&.open {
-		width: 15.5em;
+	z-index: 10;
+	&--open {
+		width: 18em;
 		li {
 			span {
 				margin-left: 2.25em;
@@ -25,13 +25,21 @@
 		a {
 			display: flex;
 			align-items: center;
-			padding: 1em 0;
+			padding: 2.5em 3em;
 			height: 3.5em;
 			color: $white;
 			font-size: 1em;
 			opacity: 0.5;
 			&.active {
 				opacity: 1;
+			}
+			&.hover {
+				opacity: 1;
+				background: $white;
+				color: $black;
+				svg {
+					fill: $black;
+				}
 			}
 		}
 		svg {
