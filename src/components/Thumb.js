@@ -1,15 +1,24 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 import { ReactComponent as Play } from '../assets/images/play-button.svg';
 
 class Thumb extends Component {
 	render() {
+		const {
+			active,
+			showname,
+			title,
+			thumb
+		} = this.props;
+
 		return (
-			<div className="thumb">
+			<div className={active ? 'thumb thumb--selected': 'thumb'}>
+				{active}
 				<figure className="thumb-img">
-					<img src="https://live-thumbs.video.globo.com/bbb01/snapshot/" />
+					<img src={thumb} />
 					<figcaption className="thumb-img__caption">
-						<h4 className="thumb-img__caption-title">Big Brother Brasil</h4>
-						<p className="thumb-img__caption-description">Click BBB #1 - 25/03</p>
+						<h4 className="thumb-img__caption-title">{showname}</h4>
+						<p className="thumb-img__caption-description">{title}</p>
 					</figcaption>
 					<div className="thumb-img__overlay"></div>
 					<div className="thumb-img__overlay-play">
@@ -19,6 +28,13 @@ class Thumb extends Component {
 			</div>
 		)
 	}
+}
+
+Thumb.propTypes = {
+	active: PropTypes.bool,
+	showname: PropTypes.string,
+	title: PropTypes.string,
+	thumb: PropTypes.string,
 }
 
 export default Thumb

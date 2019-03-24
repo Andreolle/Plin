@@ -21,9 +21,11 @@
 	&__track {
 		display: flex;
 		flex-wrap: nowrap;
+		margin-bottom: 3em;
+		@include transition(all .3s ease);
 		.thumb {
 			flex-shrink: 0;
-			margin-right: 1em;
+			margin-right: 1%;
 			width: $thumb-size;
 			&:last-child {
 				margin-right: 0;

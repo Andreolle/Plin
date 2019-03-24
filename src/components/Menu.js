@@ -8,9 +8,19 @@ import { ReactComponent as Tabs } from '../assets/images/tabs.svg';
 import { ReactComponent as Profile } from '../assets/images/profile-user.svg';
 
 class Menu extends Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			isOpen: false,
+		};
+
+		// this.toggleMenu = this.toggleMenu.bind(this)
+	}
+
 	render() {
 		return (
-			<nav className={this.props.isOpen ? 'menu menu--open' : 'menu'}>
+			<nav className={this.state.isOpen ? 'menu menu--open' : 'menu'}>
 				<ul>
 					<li>
 						<NavLink activeClassName="active" to="/busca">
@@ -47,13 +57,5 @@ class Menu extends Component {
 		)
 	}
 }
-
-Menu.propTypes = {
-	isOpen: PropTypes.bool
-}
-
-Menu.defaultProps = {
-  isOpen: false
-};
 
 export default Menu
