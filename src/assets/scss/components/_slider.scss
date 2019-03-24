@@ -2,4 +2,32 @@
 	position: relative;
 	z-index: 5;
 	margin-left: $menu-compensation;
+	&__header {
+		margin-bottom: 1.3em;
+	}
+	&__content {
+		position: relative;
+		max-width: calc(100vw - #{$slider-track});
+		&-selected {
+			position: absolute;
+			width: $thumb-size;
+			height: 100%;
+			z-index: 5;
+			top: 0;
+			left: 0;
+			border: 0.25em solid $white;
+		}
+	}
+	&__track {
+		display: flex;
+		flex-wrap: nowrap;
+		.thumb {
+			flex-shrink: 0;
+			margin-right: 1em;
+			width: $thumb-size;
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
 }

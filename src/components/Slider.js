@@ -1,37 +1,25 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
-import { ReactComponent as Play } from '../assets/images/play-button.svg';
+import Thumb from '../components/Thumb'
 
 class Slider extends Component {
 	render() {
-		// const {
-		// 	title,
-		// 	background,
-		// 	logo,
-		// 	description,
-		// 	buttons,
-		// } = this.props;
-
 		return (
 			<div className="slider">
-				<h1>Slider here</h1>
+				<h3 className="slider__header">Agora no BBB</h3>
+				<div className="slider__content">
+					<div className="slider__content-selected"></div>
+					<div className="slider__track">
+						<Thumb />
+						<Thumb />
+						<Thumb />
+						<Thumb />
+						<Thumb />
+						<Thumb />
+					</div>
+				</div>
 			</div>
 		)
 	}
 }
-
-// Highlight.propTypes = {
-// 	background: PropTypes.string,
-// 	title: PropTypes.string,
-// 	logo: PropTypes.string,
-// 	description: PropTypes.string,
-// 	buttons: PropTypes.arrayOf(
-// 		PropTypes.shape({
-// 			title: PropTypes.string,
-// 			type: PropTypes.string,
-// 			url: PropTypes.string
-// 		}),
-// 	)
-// }
 
 export default Slider

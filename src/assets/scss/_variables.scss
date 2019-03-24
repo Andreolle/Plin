@@ -6,3 +6,7 @@ $gray: #aaaaaa;
 
 // Size
 $menu-compensation: 10em;
+$menu-closed: 7.5em;
+$menu-opened: 18em;
+$slider-track: ($menu-compensation - $menu-closed) + $menu-compensation;
+$thumb-size: calc(25% - 2em);

@@ -1,12 +1,12 @@
 .menu {
 	position: fixed;
 	background: #000000;
-	width: 7.5em;
+	width: $menu-closed;
 	@include transition(width .2s ease-in);
 	overflow: hidden;
 	z-index: 10;
 	&.menu--open {
-		width: 18em;
+		width: $menu-opened;
 		li {
 			span {
 				margin-left: 2.25em;
