@@ -63,7 +63,7 @@
 			align-items: center;
 			font-weight: 700;
 			color: $gray;
-			@include border-radius(0.4em);
+			@include border-radius(0.2em);
 			border: 1px solid $gray;
 		}
 		svg {

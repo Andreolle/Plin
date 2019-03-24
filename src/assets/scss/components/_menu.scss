@@ -5,7 +5,7 @@
 	@include transition(width .2s ease-in);
 	overflow: hidden;
 	z-index: 10;
-	&--open {
+	&.menu--open {
 		width: 18em;
 		li {
 			span {

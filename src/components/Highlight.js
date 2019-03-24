@@ -5,31 +5,46 @@ import { ReactComponent as Play } from '../assets/images/play-button.svg';
 
 class Highlight extends Component {
 	render() {
+		const {
+			title,
+			background,
+			logo,
+			description,
+			buttons,
+		} = this.props;
+
 		return (
 			<section className="highlight">
-				<div class="highlight__background">
-					<img src="https://s2.glbimg.com/sQgo2XcTf6NUHtQZSJAOMIzUUKI=/i.s3.glbimg.com/v1/AUTH_c3c606ff68e7478091d1ca496f9c5625/internal_photos/bs/2019/V/z/ghHzyQRlGlQVgUzJPj2w/2019-278-series-warner1-supernatural-destaque-foco-direita.jpg" alt=""/>
+				<div className="highlight__background">
+					<img src={background} />
 				</div>
 				<div className="highlight__content">
-					<h2 className="highlight__headline highlight__headline highlight__headline--image">
-						<img src="https://s2.glbimg.com/goBXWPCOk072RayqcQRMlax9rpU=/fit-in/0x364/filters:fill(transparent)/i.s3.glbimg.com/v1/AUTH_c3c606ff68e7478091d1ca496f9c5625/internal_photos/bs/2019/X/z/ltg5GYTd6jMZod3GeDBA/2019-278-series-warner1-supernatural-logo-destaque.png" alt=""/>
+					<h2 className={logo ?
+						'highlight__headline highlight__headline--image'
+						: 'highlight__headline highlight__headline--text'}>
+						{logo ? <img src={logo} alt={title} /> : title}
 					</h2>
-					<div class="highlight__description">
-						<p>Atenção forças do Mal: os irmãos Winchester chegaram!</p>
+
+					<div className="highlight__description">
+						<p>{description}</p>
 					</div>
-					<div className="highlight__actions">
-					<div className="highlight__button">
-							<NavLink to="/minha-conta">
-								<Play />
-								<span>Assista</span>
-							</NavLink>
-						</div>
-						<div className="highlight__button">
-							<NavLink to="/minha-conta">
-								<span>Veja mais</span>
-							</NavLink>
-						</div>
-					</div>
+					{
+						buttons ?
+							<div className="highlight__actions">
+								{
+									buttons.map(button => {
+										return (
+											<div className="highlight__button" key={button.title}>
+												<NavLink to={button.url || "" }>
+													{!button.url ? <Play className="icon" /> : null}
+													<span>{button.title}</span>
+												</NavLink>
+											</div>
+										)
+									})
+								}
+							</div> : null
+					}
 				</div>
 			</section>
 		)
@@ -37,11 +52,17 @@ class Highlight extends Component {
 }
 
 Highlight.propTypes = {
-	isOpen: PropTypes.bool
+	background: PropTypes.string,
+	title: PropTypes.string,
+	logo: PropTypes.string,
+	description: PropTypes.string,
+	buttons: PropTypes.arrayOf(
+		PropTypes.shape({
+			title: PropTypes.string,
+			type: PropTypes.string,
+			url: PropTypes.string
+		}),
+	)
 }
-
-Highlight.defaultProps = {
-  isOpen: true
-};
 
 export default Highlight
