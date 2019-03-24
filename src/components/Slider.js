@@ -60,7 +60,8 @@ class Slider extends Component {
 
 	render() {
 		const {
-			items
+			items,
+			selectedItem
 		} = this.state
 
 		return (
@@ -73,9 +74,10 @@ class Slider extends Component {
 							<div className="slider__content">
 								<div className="slider__content-selected"></div>
 								<div className="slider__track" style={this.slide()}>
-									{playlist.video.map(({title, showname, thumb}) =>
+									{playlist.video.map(({title, showname, thumb}, index) =>
 										<Thumb
 											key={title}
+											active={selectedItem === index}
 											showname={showname}
 											thumb={thumb}
 											title={title} />)}
