@@ -1,14 +1,50 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { ReactComponent as Play } from '../assets/images/play-button.svg';
+import { allowedKeys } from '../utils/handleKeyDown'
+import {
+	setHighlight
+} from '../actions'
 
 class Thumb extends Component {
+	highlightItem = (e) => {
+		const key = allowedKeys(e);
+		const {
+			active,
+			showname,
+			title,
+			thumb,
+			focus
+		} = this.props;
+
+		if (key) {
+			if (focus === 'slider' && active) {
+				const highlight = {
+					title,
+					showname,
+					thumb
+				}
+				this.props.dispatch(setHighlight(highlight))
+			}
+
+			if (focus !== 'slider') {
+				this.props.dispatch(setHighlight(''))
+			}
+		}
+	}
+
+	componentDidMount() {
+		document.addEventListener("keydown", this.highlightItem);
+	}
+
 	render() {
 		const {
 			active,
 			showname,
 			title,
-			thumb
+			thumb,
+			focus
 		} = this.props;
 
 		return (
@@ -36,4 +72,13 @@ Thumb.propTypes = {
 	thumb: PropTypes.string,
 }
 
-export default Thumb
+const mapStateToProps = state => {
+  return {
+		highlight: state.highlight,
+		focus: state.focus
+  }
+}
+
+export default connect(
+	mapStateToProps
+)(Thumb)

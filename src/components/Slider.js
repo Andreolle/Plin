@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Thumb from '../components/Thumb'
 import request from '../utils/request'
+import { allowedKeys } from '../utils/handleKeyDown'
+import {
+	setFocus,
+	setInnerFocus,
+	beforeMenu
+} from '../actions'
 
 class Slider extends Component {
 	constructor(props) {
@@ -35,6 +41,38 @@ class Slider extends Component {
 		this.setState({
 			maxItems
 		})
+
+		document.addEventListener("keydown", this.handleKeyDown);
+	}
+
+	handleKeyDown = (e) => {
+		const {focus, innerfocus} = this.props;
+		const key = allowedKeys(e);
+
+		if (focus === 'slider') {
+			const maxItems = 9;
+			if (key === 'left') {
+				const cursor = innerfocus - 1;
+				if (cursor < 0) {
+					this.props.dispatch(beforeMenu('slider'))
+					this.props.dispatch(setFocus('menu'))
+				} else {
+					this.props.dispatch(setInnerFocus(cursor))
+				}
+			}
+
+			if (key === 'right') {
+				const cursor = innerfocus + 1;
+				if (cursor <= maxItems) {
+					this.props.dispatch(setInnerFocus(cursor))
+				}
+			}
+
+			if (key === 'up') {
+				this.props.dispatch(setInnerFocus(0))
+				this.props.dispatch(setFocus('highlight'))
+			}
+		}
 	}
 
 	render() {
@@ -77,7 +115,8 @@ class Slider extends Component {
 const mapStateToProps = state => {
   return {
 		focus: state.focus,
-		innerfocus: state.innerfocus
+		innerfocus: state.innerfocus,
+		beforemenu: state.beforemenu
   }
 }
 

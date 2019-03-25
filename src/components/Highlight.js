@@ -3,8 +3,50 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom'
 import { ReactComponent as Play } from '../assets/images/play-button.svg';
 import { connect } from 'react-redux'
+import { allowedKeys } from '../utils/handleKeyDown'
+import {
+	setFocus,
+	setInnerFocus,
+	beforeMenu
+} from '../actions'
 
 class Highlight extends Component {
+	componentDidMount() {
+		document.addEventListener("keydown", this.handleKeyDown);
+	}
+
+	handleKeyDown = (e) => {
+		const {focus, innerfocus, buttons} = this.props;
+		const key = allowedKeys(e);
+
+		if (key) {
+			if (focus === 'highlight') {
+				const maxItems = buttons.length - 1;
+				if (key === 'left') {
+					const cursor = innerfocus - 1;
+					if (cursor < 0) {
+						this.props.dispatch(beforeMenu('highlight'))
+						this.props.dispatch(setFocus('menu'))
+					} else {
+						this.props.dispatch(setInnerFocus(cursor))
+					}
+				}
+
+				if (key === 'right') {
+					const cursor = innerfocus + 1;
+					if (cursor <= maxItems) {
+						this.props.dispatch(setInnerFocus(cursor))
+					}
+				}
+
+				if (key === 'down') {
+					this.props.dispatch(setInnerFocus(0))
+					this.props.dispatch(setFocus('slider'))
+				}
+			}
+		}
+	}
+
 	render() {
 		const {
 			title,

@@ -1,10 +1,12 @@
 .highlight {
 	position: relative;
-	height: 65vh;
+	height: 55vh;
     max-height: 45em;
 	margin-bottom: 3em;
+	@include transition(all .2s ease-in);
 	opacity: 0.5;
 	&.highlight--focus {
+		height: 65vh;
 		opacity: 1;
 	}
 	&__background {
