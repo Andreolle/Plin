@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom'
 import { ReactComponent as Play } from '../assets/images/play-button.svg';
+import { connect } from 'react-redux'
 
 class Highlight extends Component {
 	render() {
@@ -11,12 +12,14 @@ class Highlight extends Component {
 			logo,
 			description,
 			buttons,
+			focus,
+			innerfocus
 		} = this.props;
 
 		return (
-			<section className="highlight">
+			<section className={focus === 'highlight' ? 'highlight highlight--focus': 'highlight'}>
 				<div className="highlight__background">
-					<img src={background} />
+					<img src={background} alt={title} />
 				</div>
 				<div className="highlight__content">
 					<h2 className={logo ?
@@ -32,9 +35,14 @@ class Highlight extends Component {
 						buttons ?
 							<div className="highlight__actions">
 								{
-									buttons.map(button => {
+									buttons.map((button, index) => {
 										return (
-											<div className="highlight__button" key={button.title}>
+											<div
+												className={
+													innerfocus === index
+													&& focus === 'highlight' ? "highlight__button highlight__button--hover" : "highlight__button" }
+													key={button.title}>
+
 												<NavLink to={button.url || "" }>
 													{!button.url ? <Play className="icon" /> : null}
 													<span>{button.title}</span>
@@ -65,4 +73,13 @@ Highlight.propTypes = {
 	)
 }
 
-export default Highlight
+const mapStateToProps = state => {
+  return {
+		focus: state.focus,
+		innerfocus: state.innerfocus
+  }
+}
+
+export default connect(
+	mapStateToProps
+)(Highlight)

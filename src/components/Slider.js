@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Thumb from '../components/Thumb'
 import request from '../utils/request'
 
@@ -7,43 +8,21 @@ class Slider extends Component {
 		super(props)
 
 		this.state = {
-			selectedItem: 0,
 			maxItems: 0,
 			items: []
 		};
-
-		this.sliderNext = this.sliderNext.bind(this)
-		this.sliderPrev = this.sliderPrev.bind(this)
 		this.slide = this.slide.bind(this)
 	}
 
-	sliderNext = () => {
-		const maxItems = this.state.maxItems - 1;
-		const selectedItem = this.state.selectedItem;
-
-		if (selectedItem < maxItems) {
-			this.setState({
-				selectedItem: selectedItem + 1
-			})
-		}
-	}
-
-	sliderPrev = () => {
-		const selectedItem = this.state.selectedItem;
-
-		if (selectedItem !== 0) {
-			this.setState({
-				selectedItem: selectedItem - 1
-			})
-		}
-	}
-
 	slide = () => {
-		const selectedItem = this.state.selectedItem;
+		const {innerfocus, focus} = this.props;
+		const selectedItem = innerfocus;
 		const thumbsize = 22.25; // thumb + margin-right
 		const calc = thumbsize * selectedItem;
-		return {
-			transform: `translate(-${calc}%, 0px)`
+		if (focus === 'slider') {
+			return {
+				transform: `translate(-${calc}%, 0px)`
+			}
 		}
 	}
 
@@ -61,11 +40,15 @@ class Slider extends Component {
 	render() {
 		const {
 			items,
-			selectedItem
 		} = this.state
 
+		const {
+			focus,
+			innerfocus
+		} = this.props
+
 		return (
-			<div className="slider">
+			<div className={focus === 'slider' ? 'slider slider--focus' : 'slider'}>
 				{items.map(playlist => {
 					const title = playlist.title;
 					return (
@@ -77,7 +60,7 @@ class Slider extends Component {
 									{playlist.video.map(({title, showname, thumb}, index) =>
 										<Thumb
 											key={title}
-											active={selectedItem === index}
+											active={innerfocus === index && focus === 'slider'}
 											showname={showname}
 											thumb={thumb}
 											title={title} />)}
@@ -91,4 +74,13 @@ class Slider extends Component {
 	}
 }
 
-export default Slider
+const mapStateToProps = state => {
+  return {
+		focus: state.focus,
+		innerfocus: state.innerfocus
+  }
+}
+
+export default connect(
+	mapStateToProps
+)(Slider)

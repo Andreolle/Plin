@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
 import { ReactComponent as Lupe } from '../assets/images/magnifying-glass.svg';
 import { ReactComponent as Home } from '../assets/images/house.svg';
 import { ReactComponent as Frequency } from '../assets/images/frequency.svg';
@@ -10,52 +9,67 @@ import { ReactComponent as Profile } from '../assets/images/profile-user.svg';
 class Menu extends Component {
 	constructor(props) {
 		super(props)
-
 		this.state = {
-			isOpen: false,
-		};
-
-		// this.toggleMenu = this.toggleMenu.bind(this)
+			menuItems: [
+				{
+					icon: <Lupe />,
+					text: 'Busca'
+				},
+				{
+					icon: <Home />,
+					text: 'Início'
+				},
+				{
+					icon: <Frequency />,
+					text: 'Assista na Globo'
+				},
+				{
+					icon: <Tabs />,
+					text: 'Categorias'
+				},
+				{
+					icon: <Profile />,
+					text: 'Minha conta'
+				}
+			]
+		}
 	}
 
 	render() {
+		const {menuItems} = this.state;
+		const {
+			focus,
+			innerfocus
+		} = this.props;
+
 		return (
-			<nav className={this.state.isOpen ? 'menu menu--open' : 'menu'}>
+			<nav className={focus === 'menu' ? 'menu menu--open' : 'menu'}>
 				<ul>
-					<li>
-						<NavLink activeClassName="active" to="/busca">
-							<Lupe />
-							<span>Busca</span>
-						</NavLink>
-					</li>
-					<li>
-						<NavLink activeClassName="active" to="/">
-							<Home />
-							<span>Início</span>
-						</NavLink>
-					</li>
-					<li>
-						<NavLink activeClassName="active" to="/assista-na-globo">
-							<Frequency />
-							<span>Assista na Globo</span>
-						</NavLink>
-					</li>
-					<li>
-						<NavLink activeClassName="active" to="/categorias">
-							<Tabs />
-							<span>Categorias</span>
-						</NavLink>
-					</li>
-					<li>
-						<NavLink activeClassName="active" to="/minha-conta">
-							<Profile />
-							<span>Minha conta</span>
-						</NavLink>
-					</li>
+					{menuItems.map((item, index) => {
+						return (
+							<li className="menu__item">
+								<a href="/" className={
+										innerfocus === index
+										&& focus === 'menu' ? 'menu__item menu__item--active' : 'menu__item'}>
+										{item.icon}
+									<span>{item.text}</span>
+								</a>
+							</li>
+						)
+					})}
 				</ul>
 			</nav>
 		)
 	}
 }
 
-export default Menu
+const mapStateToProps = state => {
+  return {
+		focus: state.focus,
+		innerfocus: state.innerfocus
+  }
+}
+
+export default connect(
+	mapStateToProps
+)(Menu)

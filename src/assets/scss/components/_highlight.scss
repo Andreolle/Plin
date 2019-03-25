@@ -2,7 +2,11 @@
 	position: relative;
 	height: 65vh;
     max-height: 45em;
-    margin-bottom: 3em;
+	margin-bottom: 3em;
+	opacity: 0.5;
+	&.highlight--focus {
+		opacity: 1;
+	}
 	&__background {
 		position: fixed;
 		&:before {
@@ -49,7 +53,7 @@
 	}
 	&__button {
 		margin-right: 1em;
-		&.hover {
+		&.highlight__button--hover {
 			a {
 				background: $white;
 				border: 1px solid $white;

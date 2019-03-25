@@ -13,9 +13,8 @@ class Thumb extends Component {
 
 		return (
 			<div className={active ? 'thumb thumb--selected': 'thumb'}>
-				{active}
 				<figure className="thumb-img">
-					<img src={thumb} />
+					<img src={thumb} alt={title} />
 					<figcaption className="thumb-img__caption">
 						<h4 className="thumb-img__caption-title">{showname}</h4>
 						<p className="thumb-img__caption-description">{title}</p>
