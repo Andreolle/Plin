@@ -12,10 +12,6 @@ Rode o projeto
 
 O projeto estará disponivel na seguinte url: [http://localhost:3000](http://localhost:3000)
 
-## Demo
-
-Atualmente o projeto está hospedado no [Surge](https://surge.sh/), você pode conferir o resultado em [http://chatz.surge.sh/](http://chatz.surge.sh/)
-
 ## Tecnologias utilizadas
 
 * [React](https://reactjs.org/).
