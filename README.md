@@ -2,6 +2,9 @@
 
 ![Smart TV](https://media.giphy.com/media/5dWEJGS7JSy4pffgN7/giphy.gif)
 
+## Demo
+Atualmente o projeto está hospedado no [Surge](https://surge.sh/), você pode conferir o resultado em [http://plin.surge.sh/](http://plin.surge.sh/)
+
 ## Para rodar o projeto localmente
 
 Instale as depedências do projeto
