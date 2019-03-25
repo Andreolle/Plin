@@ -10,7 +10,10 @@ import {
 
 class Home extends Component {
 	constructor(props) {
-    super(props)
+		super(props)
+		this.state = {
+			beforeMenu: ''
+		}
     this.handleKeyDown = this.handleKeyDown.bind(this)
 	}
 
@@ -35,6 +38,9 @@ class Home extends Component {
 				if (key === 'left') {
 					const cursor = innerfocus - 1;
 					if (cursor < 0) {
+						this.setState({
+							beforeMenu: 'highlight'
+						})
 						this.props.dispatch(setFocus('menu'))
 					} else {
 						this.props.dispatch(setInnerFocus(cursor))
@@ -59,6 +65,9 @@ class Home extends Component {
 				if (key === 'left') {
 					const cursor = innerfocus - 1;
 					if (cursor < 0) {
+						this.setState({
+							beforeMenu: 'slider'
+						})
 						this.props.dispatch(setFocus('menu'))
 					} else {
 						this.props.dispatch(setInnerFocus(cursor))
@@ -79,6 +88,7 @@ class Home extends Component {
 			}
 
 			if (focus === 'menu') {
+				const {beforeMenu} = this.state;
 				const maxItems = 5;
 
 				if (key === 'down') {
@@ -97,7 +107,7 @@ class Home extends Component {
 
 				if (key === 'right') {
 					this.props.dispatch(setInnerFocus(0))
-					this.props.dispatch(setFocus('highlight'))
+					this.props.dispatch(setFocus(beforeMenu))
 				}
 			}
 		}
