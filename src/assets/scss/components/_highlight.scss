@@ -1,12 +1,12 @@
 .highlight {
 	position: relative;
-	height: 55vh;
+	height: 35em;
     max-height: 45em;
 	margin-bottom: 3em;
 	@include transition(all .2s ease-in);
 	opacity: 0.5;
 	&.highlight--focus {
-		height: 65vh;
+		height: 40em;
 		opacity: 1;
 	}
 	&__background {
@@ -30,7 +30,7 @@
 	&__content {
 		position: relative;
 		display: inline-block;
-		top: 25vh;
+		top: 15em;
 		left: $menu-compensation;
 		z-index: 5;
 	}

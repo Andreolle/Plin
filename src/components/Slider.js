@@ -27,7 +27,7 @@ class Slider extends Component {
 		const calc = thumbsize * selectedItem;
 		if (focus === 'slider') {
 			return {
-				transform: `translate(-${calc}%, 0px)`
+				transform: `translate(-${calc}em, 0px)`
 			}
 		}
 	}
