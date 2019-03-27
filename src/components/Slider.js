@@ -6,7 +6,7 @@ import { allowedKeys } from '../utils/handleKeyDown'
 import {
 	setFocus,
 	setInnerFocus,
-	beforeMenu
+	beforeMenu,
 } from '../actions'
 
 class Slider extends Component {
@@ -33,14 +33,9 @@ class Slider extends Component {
 	}
 
 	componentDidMount() {
-		const maxItems = document.querySelectorAll('.slider__track .thumb').length;
 		request('https://plin-dc1ef.firebaseio.com/playlists.json', 'GET')
 			.then(res => res.json().then(data => this.setState({items: data})))
 			.catch(error => console.log(error))
-
-		this.setState({
-			maxItems
-		})
 
 		document.addEventListener("keydown", this.handleKeyDown);
 	}
@@ -50,7 +45,8 @@ class Slider extends Component {
 		const key = allowedKeys(e);
 
 		if (focus === 'slider') {
-			const maxItems = 9;
+			const videos = this.state.items[0].video;
+			const maxItems = videos.length - 1;
 			if (key === 'left') {
 				const cursor = innerfocus - 1;
 				if (cursor < 0) {

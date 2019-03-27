@@ -13,3 +13,7 @@ export function beforeMenu(el) {
 export function setHighlight(el) {
 	return { type: 'SET__HIGHLIGHT', payload: el }
 }
+
+export function setItems(num) {
+	return { type: 'SET_ITEMS', payload: num }
+}

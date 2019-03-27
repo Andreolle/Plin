@@ -61,7 +61,6 @@ class Menu extends Component {
 				}
 
 				if (key === 'up') {
-					console.log('up')
 					const cursor = innerfocus - 1;
 					if (cursor >= 0) {
 						this.props.dispatch(setInnerFocus(cursor))
