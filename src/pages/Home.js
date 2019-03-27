@@ -3,11 +3,15 @@ import Menu from '../components/Menu'
 import Highlight from '../components/Highlight'
 import Slider from '../components/Slider'
 import { connect } from 'react-redux'
+import { navAction } from '../utils/handleKeyDown'
 
 class Home extends Component {
+	componentDidMount() {
+		document.addEventListener("keydown", ((e) => navAction(e, this.props)));
+	}
 	render() {
 		const {
-			focus,
+			navigation,
 			highlight
 		} = this.props
 
@@ -25,11 +29,11 @@ class Home extends Component {
 		}
 
 		return (
-			<div className="home" onKeyDown={ this.handleKeyDown }>
+			<div className="home">
 				<Menu />
 				<div className="column">
 					{
-						focus === 'slider' && highlight !== '' ?
+						navigation.focus === 'slider' && highlight !== '' ?
 						(
 							<Highlight
 								background={highlight.thumb}
@@ -53,9 +57,8 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-		focus: state.focus,
-		innerfocus: state.innerfocus,
-		highlight: state.highlight
+		highlight: state.highlight,
+		navigation: state.navigation
   }
 }
 

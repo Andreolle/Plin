@@ -8,7 +8,8 @@ import { ReactComponent as Profile } from '../assets/images/profile-user.svg';
 import { allowedKeys } from '../utils/handleKeyDown'
 import {
 	setFocus,
-	setInnerFocus
+	setInnerFocus,
+	setItems
 } from '../actions'
 
 class Menu extends Component {
@@ -42,6 +43,14 @@ class Menu extends Component {
 
 	componentDidMount() {
 		document.addEventListener("keydown", this.handleKeyDown);
+		// document.addEventListener("keydown", () => {
+		// 	const {navigation, dispatch} = this.props;
+		// 	const {menuItems} = this.state;
+		// 	const maxItems = menuItems.length - 1;
+		// 	if (navigation.focus === 'menu') {
+		// 		dispatch(setItems(maxItems));
+		// 	}
+		// });
 	}
 
 	handleKeyDown = (e) => {
@@ -81,6 +90,7 @@ class Menu extends Component {
 		const {
 			navigation
 		} = this.props;
+
 
 		return (
 			<nav className={navigation.focus === 'menu' ? 'menu menu--open' : 'menu'}>

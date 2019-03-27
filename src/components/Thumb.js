@@ -15,21 +15,22 @@ class Thumb extends Component {
 			showname,
 			title,
 			thumb,
-			focus
+			navigation,
+			dispatch
 		} = this.props;
 
 		if (key) {
-			if (focus === 'slider' && active) {
+			if (navigation.focus === 'slider' && active) {
 				const highlight = {
 					title,
 					showname,
 					thumb
 				}
-				this.props.dispatch(setHighlight(highlight))
+				dispatch(setHighlight(highlight))
 			}
 
-			if (focus !== 'slider') {
-				this.props.dispatch(setHighlight(''))
+			if (navigation.focus !== 'slider') {
+				dispatch(setHighlight(''))
 			}
 		}
 	}
@@ -43,8 +44,7 @@ class Thumb extends Component {
 			active,
 			showname,
 			title,
-			thumb,
-			focus
+			thumb
 		} = this.props;
 
 		return (
@@ -75,7 +75,7 @@ Thumb.propTypes = {
 const mapStateToProps = state => {
   return {
 		highlight: state.highlight,
-		focus: state.focus
+		navigation: state.navigation
   }
 }
 
