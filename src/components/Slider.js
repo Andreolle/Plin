@@ -21,11 +21,11 @@ class Slider extends Component {
 	}
 
 	slide = () => {
-		const {innerfocus, focus} = this.props;
-		const selectedItem = innerfocus;
+		const {navigation} = this.props;
+		const selectedItem = navigation.innerfocus;
 		const thumbsize = 22.25; // thumb + margin-right
 		const calc = thumbsize * selectedItem;
-		if (focus === 'slider') {
+		if (navigation.focus === 'slider') {
 			return {
 				transform: `translate(-${calc}%, 0px)`
 			}
@@ -41,32 +41,32 @@ class Slider extends Component {
 	}
 
 	handleKeyDown = (e) => {
-		const {focus, innerfocus} = this.props;
+		const {navigation, dispatch} = this.props;
 		const key = allowedKeys(e);
 
-		if (focus === 'slider') {
+		if (navigation.focus === 'slider') {
+			dispatch(beforeMenu('slider'))
 			const videos = this.state.items[0].video;
 			const maxItems = videos.length - 1;
 			if (key === 'left') {
-				const cursor = innerfocus - 1;
+				const cursor = navigation.innerfocus - 1;
 				if (cursor < 0) {
-					this.props.dispatch(beforeMenu('slider'))
-					this.props.dispatch(setFocus('menu'))
+					dispatch(setFocus('menu'))
 				} else {
-					this.props.dispatch(setInnerFocus(cursor))
+					dispatch(setInnerFocus(cursor))
 				}
 			}
 
 			if (key === 'right') {
-				const cursor = innerfocus + 1;
+				const cursor = navigation.innerfocus + 1;
 				if (cursor <= maxItems) {
-					this.props.dispatch(setInnerFocus(cursor))
+					dispatch(setInnerFocus(cursor))
 				}
 			}
 
 			if (key === 'up') {
-				this.props.dispatch(setInnerFocus(0))
-				this.props.dispatch(setFocus('highlight'))
+				dispatch(setInnerFocus(0))
+				dispatch(setFocus('highlight'))
 			}
 		}
 	}
@@ -77,12 +77,11 @@ class Slider extends Component {
 		} = this.state
 
 		const {
-			focus,
-			innerfocus
+			navigation
 		} = this.props
 
 		return (
-			<div className={focus === 'slider' ? 'slider slider--focus' : 'slider'}>
+			<div className={navigation.focus === 'slider' ? 'slider slider--focus' : 'slider'}>
 				{items.map(playlist => {
 					const title = playlist.title;
 					return (
@@ -94,7 +93,7 @@ class Slider extends Component {
 									{playlist.video.map(({title, showname, thumb}, index) =>
 										<Thumb
 											key={title}
-											active={innerfocus === index && focus === 'slider'}
+											active={navigation.innerfocus === index && navigation.focus === 'slider'}
 											showname={showname}
 											thumb={thumb}
 											title={title} />)}
@@ -110,9 +109,7 @@ class Slider extends Component {
 
 const mapStateToProps = state => {
   return {
-		focus: state.focus,
-		innerfocus: state.innerfocus,
-		beforemenu: state.beforemenu
+		navigation: state.navigation
   }
 }
 

@@ -45,31 +45,31 @@ class Menu extends Component {
 	}
 
 	handleKeyDown = (e) => {
-		const {focus, innerfocus, beforemenu} = this.props;
+		const {navigation, dispatch} = this.props;
 		const {menuItems} = this.state;
 		const key = allowedKeys(e);
 
 		if (key) {
-			if (focus === 'menu') {
+			if (navigation.focus === 'menu') {
 				const maxItems = menuItems.length - 1;
 
 				if (key === 'down') {
-					const cursor = innerfocus + 1;
+					const cursor = navigation.innerfocus + 1;
 					if (cursor <= maxItems) {
-						this.props.dispatch(setInnerFocus(cursor))
+						dispatch(setInnerFocus(cursor))
 					}
 				}
 
 				if (key === 'up') {
-					const cursor = innerfocus - 1;
+					const cursor = navigation.innerfocus - 1;
 					if (cursor >= 0) {
-						this.props.dispatch(setInnerFocus(cursor))
+						dispatch(setInnerFocus(cursor))
 					}
 				}
 
 				if (key === 'right') {
-					this.props.dispatch(setFocus(beforemenu))
-					this.props.dispatch(setInnerFocus(-1))
+					dispatch(setFocus(navigation.beforemenu))
+					dispatch(setInnerFocus(-1))
 				}
 			}
 		}
@@ -79,19 +79,18 @@ class Menu extends Component {
 	render() {
 		const {menuItems} = this.state;
 		const {
-			focus,
-			innerfocus
+			navigation
 		} = this.props;
 
 		return (
-			<nav className={focus === 'menu' ? 'menu menu--open' : 'menu'}>
+			<nav className={navigation.focus === 'menu' ? 'menu menu--open' : 'menu'}>
 				<ul>
 					{menuItems.map((item, index) => {
 						return (
 							<li className="menu__item" key={index}>
 								<a href="/" className={
-										innerfocus === index
-										&& focus === 'menu' ? 'menu__item menu__item--active' : 'menu__item'}>
+										navigation.innerfocus === index
+										&& navigation.focus === 'menu' ? 'menu__item menu__item--active' : 'menu__item'}>
 										{item.icon}
 									<span>{item.text}</span>
 								</a>
@@ -106,9 +105,7 @@ class Menu extends Component {
 
 const mapStateToProps = state => {
   return {
-		focus: state.focus,
-		innerfocus: state.innerfocus,
-		beforemenu: state.beforemenu
+		navigation: state.navigation
   }
 }
 

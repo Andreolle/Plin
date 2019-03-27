@@ -13,35 +13,37 @@ import {
 class Highlight extends Component {
 	componentDidMount() {
 		document.addEventListener("keydown", this.handleKeyDown);
+		console.log(this.props.navigation.focus)
 	}
 
 	handleKeyDown = (e) => {
-		const {focus, innerfocus, buttons} = this.props;
+		const {navigation, buttons, dispatch} = this.props;
 		const key = allowedKeys(e);
 
 		if (key) {
-			if (focus === 'highlight') {
+			if (navigation.focus === 'highlight') {
 				const maxItems = buttons.length - 1;
 				if (key === 'left') {
-					const cursor = innerfocus - 1;
+					const cursor = navigation.innerfocus - 1;
+					console.log(cursor)
 					if (cursor < 0) {
-						this.props.dispatch(beforeMenu('highlight'))
-						this.props.dispatch(setFocus('menu'))
+						dispatch(beforeMenu('highlight'))
+						dispatch(setFocus('menu'))
 					} else {
-						this.props.dispatch(setInnerFocus(cursor))
+						dispatch(setInnerFocus(cursor))
 					}
 				}
 
 				if (key === 'right') {
-					const cursor = innerfocus + 1;
+					const cursor = navigation.innerfocus + 1;
 					if (cursor <= maxItems) {
-						this.props.dispatch(setInnerFocus(cursor))
+						dispatch(setInnerFocus(cursor))
 					}
 				}
 
 				if (key === 'down') {
-					this.props.dispatch(setInnerFocus(0))
-					this.props.dispatch(setFocus('slider'))
+					dispatch(setInnerFocus(0))
+					dispatch(setFocus('slider'))
 				}
 			}
 		}
@@ -54,12 +56,11 @@ class Highlight extends Component {
 			logo,
 			description,
 			buttons,
-			focus,
-			innerfocus
+			navigation
 		} = this.props;
 
 		return (
-			<section className={focus === 'highlight' ? 'highlight highlight--focus': 'highlight'}>
+			<section className={navigation.focus === 'highlight' ? 'highlight highlight--focus': 'highlight'}>
 				<div className="highlight__background">
 					<img src={background} alt={title} />
 				</div>
@@ -81,8 +82,8 @@ class Highlight extends Component {
 										return (
 											<div
 												className={
-													innerfocus === index
-													&& focus === 'highlight' ? "highlight__button highlight__button--hover" : "highlight__button" }
+													navigation.innerfocus === index
+													&& navigation.focus === 'highlight' ? "highlight__button highlight__button--hover" : "highlight__button" }
 													key={button.title}>
 
 												<NavLink to={button.url || "" }>
@@ -118,7 +119,8 @@ Highlight.propTypes = {
 const mapStateToProps = state => {
   return {
 		focus: state.focus,
-		innerfocus: state.innerfocus
+		innerfocus: state.innerfocus,
+		navigation: state.navigation
   }
 }
 

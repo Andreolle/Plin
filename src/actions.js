@@ -7,7 +7,7 @@ export function setInnerFocus(el) {
 }
 
 export function beforeMenu(el) {
-	return { type: 'BEFORE_MENU', payload: el }
+	return { type: 'SET_BEFOREMENU', payload: el }
 }
 
 export function setHighlight(el) {
